@@ -1,0 +1,3 @@
+[console_scripts]
+caldintav3 = caldintav.runs:run_gui
+

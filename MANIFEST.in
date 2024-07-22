@@ -1,0 +1,8 @@
+# include the license and the readme files
+include *.txt *.rst
+
+# include all files under caldintav folder
+recursive-include caldintav *
+
+# exclude all file type *~, *.swp
+global-exclude *~ *.swp
