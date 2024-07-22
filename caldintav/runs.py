@@ -1716,17 +1716,16 @@ class caldintav(QtWidgets.QMainWindow):
     def open_manual(self):
         try: 
             if sys.platform == 'win32':
-                print('here!')
-                filename = direction + sep + 'user_guide.pdf'
+                filename = path.abspath(path.dirname(cdt.__file__)) + sep + 'user_guide.pdf'
                 print(filename)
                 # PARA WINDOWS abertura PDF
                 os.startfile(filename)
             elif sys.platform == "darwin":
-                filename = direction + sep + 'user_guide.pdf'
+                filename = path.abspath(path.dirname(cdt.__file__)) + sep + 'user_guide.pdf'
                 # PARA MAC OS SYSTEM
                 system('open '+filename)
             elif  sys.platform == "linux" or "linux2":
-                filename = direction + sep + 'user_guide.pdf'
+                filename = path.abspath(path.dirname(cdt.__file__)) + sep + 'user_guide.pdf'
                 # PARA UBUNTU-GNOME abertura PDF
                 system('/usr/bin/gnome-open '+ filename)
         except:
