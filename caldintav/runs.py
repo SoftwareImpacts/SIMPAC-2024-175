@@ -23,7 +23,7 @@ import sys
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 import caldintav as cdt
-from os import path
+from os import path, sep, makedirs
 #------------------------------------------------------------------------
 direction = path.abspath(path.dirname(cdt.__file__))
 #------------------------------------------------------------------------
@@ -40,7 +40,7 @@ from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 
 from matplotlib.figure import Figure
 
-from matplotlib.backends.backend_qt5agg import  NavigationToolbar2QT as NavigationToolbar
+from matplotlib.backends.backend_qt4agg import  NavigationToolbar2QT as NavigationToolbar
 
 from matplotlib import rc
 
@@ -514,9 +514,10 @@ class caldintav(QtWidgets.QMainWindow):
         aux = str(self.ui.project_name.text());
         self.project_name = "_".join(aux.split())
         path = getcwd()
-        folder = path + '/' + self.project_name
+        folder = path + sep + self.project_name
         if  isdir(folder) is False:
-            system('mkdir ' + folder)
+            #system('mkdir ' + folder)
+            makedirs(folder)
     #--------------------------- bridge data definition ----------------------
     def adjust_bridge_data(self):
         if  self.ui.bridge_types.currentIndex() ==0:
@@ -791,10 +792,11 @@ class caldintav(QtWidgets.QMainWindow):
                     c1.append(float(str(self.ui.TrainTable.item(r,0).text())))
                     c2.append(float(str(self.ui.TrainTable.item(r,1).text())))
             path = getcwd()
-            folder = path + '/trains'
+            folder = path + sep + 'trains'
             if  isdir(folder) is False:
-                system('mkdir '+folder)
-            namefile = path +'/trains/'+self.newTrainFileName + '.dat'
+                #system('mkdir '+folder)
+                makedirs(folder)
+            namefile = path + sep + 'trains' + sep + self.newTrainFileName + '.dat'
             np.savetxt(namefile, np.c_[c1,c2],fmt='%8.3f')
             self.ui.list_trains.model().appendRow(QtGui.QStandardItem(self.newTrainName))
             self.add_train.append((self.newTrainName,namefile,self.newTrainVmax))
@@ -908,10 +910,11 @@ class caldintav(QtWidgets.QMainWindow):
                     c5.append(float(str(self.newTrainInter.table.item(r,4).text())))
                     c6.append(float(str(self.newTrainInter.table.item(r,5).text())))
             path = getcwd()
-            folder = path + '/trains'
+            folder = path + sep + 'trains'
             if  isdir(folder) is False:
-                system('mkdir '+folder)
-            namefile = path +'/trains/'+self.newTrainInterFileName + '.dat'
+                #system('mkdir '+folder)
+                makedirs(folder)
+            namefile = path + sep + 'trains' + sep + self.newTrainInterFileName + '.dat'
             np.savetxt(namefile, np.c_[c1,c2,c3,c4,c5,c6],fmt='%8.3f')
             self.ui.list_trains.model().appendRow(QtGui.QStandardItem(self.newTrainInterName))
             self.add_trainInte.append((self.newTrainInterName,namefile,self.newTrainInterVmax))
@@ -1231,9 +1234,9 @@ class caldintav(QtWidgets.QMainWindow):
             if  self.type_analysis == 1:
                 tren = train(); tren.cmovtrain(i,self.tra,self.add_train);
                 if  self.velo.final <= tren.vmax:
-                    filename = path + '/' + self.project_name + '/' + tren.nombre+'-envelope'+ name + 'skew'+str(self.BridgeData.alpha)+'-L'+str(self.BridgeData.L) + '-z'+str(self.BridgeData.xi*100) + '-f'+ str('%.2f' % (self.BridgeData.wn[0]/2/np.pi)) + 'Hz-m'+str(self.BridgeData.m/1.e03)+'t-nm'+str(self.BridgeData.nmod) +'-v'+str(self.velo.ini)+'-'+str(self.velo.final) + '.dat'
+                    filename = path + sep + self.project_name + sep + tren.nombre+'-envelope'+ name + 'skew'+str(self.BridgeData.alpha)+'-L'+str(self.BridgeData.L) + '-z'+str(self.BridgeData.xi*100) + '-f'+ str('%.2f' % (self.BridgeData.wn[0]/2/np.pi)) + 'Hz-m'+str(self.BridgeData.m/1.e03)+'t-nm'+str(self.BridgeData.nmod) +'-v'+str(self.velo.ini)+'-'+str(self.velo.final) + '.dat'
                 else:
-                    filename = path + '/' + self.project_name + '/' + tren.nombre+'-envelope'+ name + 'skew'+str(self.BridgeData.alpha)+'-L'+str(self.BridgeData.L) + '-z'+str(self.BridgeData.xi*100) + '-f'+ str('%.2f' % (self.BridgeData.wn[0]/2/np.pi)) + 'Hz-m'+str(self.BridgeData.m/1.e03)+'t-nm'+str(self.BridgeData.nmod) +'-v'+str(self.velo.ini)+'-'+str(tren.vmax) + '.dat'
+                    filename = path + sep + self.project_name + sep + tren.nombre+'-envelope'+ name + 'skew'+str(self.BridgeData.alpha)+'-L'+str(self.BridgeData.L) + '-z'+str(self.BridgeData.xi*100) + '-f'+ str('%.2f' % (self.BridgeData.wn[0]/2/np.pi)) + 'Hz-m'+str(self.BridgeData.m/1.e03)+'t-nm'+str(self.BridgeData.nmod) +'-v'+str(self.velo.ini)+'-'+str(tren.vmax) + '.dat'
                 dato = np.loadtxt(filename)
                 self.plotGR.axes1.plot(dato[:,0],dato[:,3],label=i)
                 self.plotGR.axes2.plot(dato[:,0],dato[:,4],label=i)
@@ -1244,9 +1247,9 @@ class caldintav(QtWidgets.QMainWindow):
             elif  self.type_analysis == 2:
                 tren = train(); tren.intetrain(i,self.tra,self.add_trainInte);
                 if  self.velo.final <= tren.vmax:
-                    filename = path + '/' + self.project_name + '/' + tren.nombre+'-envelope'+ name + 'skew'+str(self.BridgeData.alpha)+'-L'+str(self.BridgeData.L) + '-z'+str(self.BridgeData.xi*100) + '-f'+ str('%.2f' % (self.BridgeData.wn[0]/2/np.pi)) + 'Hz-m'+str(self.BridgeData.m/1.e03)+'t-nm'+str(self.BridgeData.nmod) +'-v'+str(self.velo.ini)+'-'+str(self.velo.final) + '.dat'
+                    filename = path + sep + self.project_name + sep + tren.nombre+'-envelope'+ name + 'skew'+str(self.BridgeData.alpha)+'-L'+str(self.BridgeData.L) + '-z'+str(self.BridgeData.xi*100) + '-f'+ str('%.2f' % (self.BridgeData.wn[0]/2/np.pi)) + 'Hz-m'+str(self.BridgeData.m/1.e03)+'t-nm'+str(self.BridgeData.nmod) +'-v'+str(self.velo.ini)+'-'+str(self.velo.final) + '.dat'
                 else:
-                    filename = path + '/' + self.project_name + '/' + tren.nombre+'-envelope'+ name + 'skew'+str(self.BridgeData.alpha)+'-L'+str(self.BridgeData.L) + '-z'+str(self.BridgeData.xi*100) + '-f'+ str('%.2f' % (self.BridgeData.wn[0]/2/np.pi)) + 'Hz-m'+str(self.BridgeData.m/1.e03)+'t-nm'+str(self.BridgeData.nmod) +'-v'+str(self.velo.ini)+'-'+str(tren.vmax) + '.dat'
+                    filename = path + sep + self.project_name + sep + tren.nombre+'-envelope'+ name + 'skew'+str(self.BridgeData.alpha)+'-L'+str(self.BridgeData.L) + '-z'+str(self.BridgeData.xi*100) + '-f'+ str('%.2f' % (self.BridgeData.wn[0]/2/np.pi)) + 'Hz-m'+str(self.BridgeData.m/1.e03)+'t-nm'+str(self.BridgeData.nmod) +'-v'+str(self.velo.ini)+'-'+str(tren.vmax) + '.dat'
                 dato = np.loadtxt(filename)
                 self.plotGR.axes1.plot(dato[:,0],dato[:,3],label=i)
                 self.plotGR.axes2.plot(dato[:,0],dato[:,4],label=i)
@@ -1258,9 +1261,9 @@ class caldintav(QtWidgets.QMainWindow):
                 tren = train(); tren.cmovtrain(i,self.tra,self.add_train);
                 f0 = np.pi*np.sqrt(self.BridgeData.EI/self.BridgeData.m)/(2.*self.BridgeData.L**2)
                 if  self.velo.final <= tren.vmax:
-                    filename = path + '/' + self.project_name + '/' + tren.nombre+'-LIR-L'+str(self.BridgeData.L) + '-z'+str(self.BridgeData.xi*100) + '-f'+ str('%.2f' % (f0)) + 'Hz-m'+str(self.BridgeData.m/1.e03)+'t-v'+str(self.velo.ini)+'-'+str(self.velo.final) + '.dat'
+                    filename = path + sep + self.project_name + sep + tren.nombre+'-LIR-L'+str(self.BridgeData.L) + '-z'+str(self.BridgeData.xi*100) + '-f'+ str('%.2f' % (f0)) + 'Hz-m'+str(self.BridgeData.m/1.e03)+'t-v'+str(self.velo.ini)+'-'+str(self.velo.final) + '.dat'
                 else:
-                    filename = path + '/' + self.project_name + '/' + tren.nombre+'-LIR-L'+str(self.BridgeData.L) + '-z'+str(self.BridgeData.xi*100) + '-f'+ str('%.2f' % (f0)) + 'Hz-m'+str(self.BridgeData.m/1.e03)+'t-v'+str(self.velo.ini)+'-'+str(tren.vmax) + '.dat'
+                    filename = path + sep + self.project_name + sep + tren.nombre+'-LIR-L'+str(self.BridgeData.L) + '-z'+str(self.BridgeData.xi*100) + '-f'+ str('%.2f' % (f0)) + 'Hz-m'+str(self.BridgeData.m/1.e03)+'t-v'+str(self.velo.ini)+'-'+str(tren.vmax) + '.dat'
                 dato = np.loadtxt(filename)
                 self.plotGR.axes1.plot(dato[:,0],dato[:,2],label=i)
                 self.plotGR.axes2.plot(dato[:,0],dato[:,3],label=i)
@@ -1272,9 +1275,9 @@ class caldintav(QtWidgets.QMainWindow):
                 tren = train(); tren.cmovtrain(i,self.tra,self.add_train);
                 f0 = np.pi*np.sqrt(self.BridgeData.EI/self.BridgeData.m)/(2.*self.BridgeData.L**2)
                 if  self.velo.final <= tren.vmax:
-                    filename = path + '/' + self.project_name + '/' + tren.nombre+'-DER-L'+str(self.BridgeData.L) + '-z'+str(self.BridgeData.xi*100) + '-f'+ str('%.2f' % (f0)) + 'Hz-m'+str(self.BridgeData.m/1.e03)+'t-v'+str(self.velo.ini)+'-'+str(self.velo.final) + '.dat'
+                    filename = path + sep + self.project_name + sep + tren.nombre+'-DER-L'+str(self.BridgeData.L) + '-z'+str(self.BridgeData.xi*100) + '-f'+ str('%.2f' % (f0)) + 'Hz-m'+str(self.BridgeData.m/1.e03)+'t-v'+str(self.velo.ini)+'-'+str(self.velo.final) + '.dat'
                 else:
-                    filename = path + '/' + self.project_name + '/' + tren.nombre+'-DER-L'+str(self.BridgeData.L) + '-z'+str(self.BridgeData.xi*100) + '-f'+ str('%.2f' % (f0)) + 'Hz-m'+str(self.BridgeData.m/1.e03)+'t-v'+str(self.velo.ini)+'-'+str(tren.vmax) + '.dat'
+                    filename = path + sep + self.project_name + sep + tren.nombre+'-DER-L'+str(self.BridgeData.L) + '-z'+str(self.BridgeData.xi*100) + '-f'+ str('%.2f' % (f0)) + 'Hz-m'+str(self.BridgeData.m/1.e03)+'t-v'+str(self.velo.ini)+'-'+str(tren.vmax) + '.dat'
                 dato = np.loadtxt(filename)
                 self.plotGR.axes1.plot(dato[:,0],dato[:,2],label=i)
                 self.plotGR.axes2.plot(dato[:,0],dato[:,3],label=i)
@@ -1348,7 +1351,7 @@ class caldintav(QtWidgets.QMainWindow):
                     name = '-ml-'
                 if float(self.ui.comboVelo.currentText()) <= tren.vmax:
                     path=getcwd()
-                    datafile = path + '/' + self.project_name + '/' + tren.nombre+ name + 'skew'+str(self.BridgeData.alpha)+'-L'+str(self.BridgeData.L) + '-z'+str(self.BridgeData.xi*100) + '-f'+ str('%.2f' % (self.BridgeData.wn[0]/2/np.pi)) + 'Hz-m'+str(self.BridgeData.m/1.e03)+'t-nm'+str(self.BridgeData.nmod) +'-v'+str(self.ui.comboVelo.currentText())+'.dat'
+                    datafile = path + sep + self.project_name + sep + tren.nombre+ name + 'skew'+str(self.BridgeData.alpha)+'-L'+str(self.BridgeData.L) + '-z'+str(self.BridgeData.xi*100) + '-f'+ str('%.2f' % (self.BridgeData.wn[0]/2/np.pi)) + 'Hz-m'+str(self.BridgeData.m/1.e03)+'t-nm'+str(self.BridgeData.nmod) +'-v'+str(self.ui.comboVelo.currentText())+'.dat'
                     dato = np.loadtxt(datafile)
                     iamax = np.argmax(abs(dato[:,3])); tamax = dato[iamax,0]; amax = dato[iamax,3];
                     leyenda = r'amax = %.3f m/s$^2$ at t = %.3f s' % (amax,tamax)
@@ -1382,7 +1385,7 @@ class caldintav(QtWidgets.QMainWindow):
                     name = '-im-'
                 if float(self.ui.comboVelo.currentText()) <= tren.vmax:
                     path=getcwd()
-                    datafile = path + '/' + self.project_name + '/' + tren.nombre+ name + 'skew'+str(self.BridgeData.alpha)+'-L'+str(self.BridgeData.L) + '-z'+str(self.BridgeData.xi*100) + '-f'+ str('%.2f' % (self.BridgeData.wn[0]/2/np.pi)) + 'Hz-m'+str(self.BridgeData.m/1.e03)+'t-nm'+str(self.BridgeData.nmod) +'-v'+str(self.ui.comboVelo.currentText())+'.dat'
+                    datafile = path + sep + self.project_name + sep + tren.nombre+ name + 'skew'+str(self.BridgeData.alpha)+'-L'+str(self.BridgeData.L) + '-z'+str(self.BridgeData.xi*100) + '-f'+ str('%.2f' % (self.BridgeData.wn[0]/2/np.pi)) + 'Hz-m'+str(self.BridgeData.m/1.e03)+'t-nm'+str(self.BridgeData.nmod) +'-v'+str(self.ui.comboVelo.currentText())+'.dat'
                     dato = np.loadtxt(datafile)
                     iamax = np.argmax(abs(dato[:,3])); tamax = dato[iamax,0]; amax = dato[iamax,3];
                     leyenda = r'amax = %.3f m/s$^2$ at t = %.3f s' % (amax,tamax)
@@ -1427,7 +1430,7 @@ class caldintav(QtWidgets.QMainWindow):
                     name = '-ml-'
                 if float(self.ui.comboVelo.currentText()) <= tren.vmax:
                     path=getcwd()
-                    datafile = path + '/' + self.project_name + '/' + tren.nombre+ name + 'skew'+str(self.BridgeData.alpha)+'-L'+str(self.BridgeData.L) + '-z'+str(self.BridgeData.xi*100) + '-f'+ str('%.2f' % (self.BridgeData.wn[0]/2/np.pi)) + 'Hz-m'+str(self.BridgeData.m/1.e03)+'t-nm'+str(self.BridgeData.nmod) +'-v'+str(self.ui.comboVelo.currentText())+'.dat'
+                    datafile = path + sep + self.project_name + sep + tren.nombre+ name + 'skew'+str(self.BridgeData.alpha)+'-L'+str(self.BridgeData.L) + '-z'+str(self.BridgeData.xi*100) + '-f'+ str('%.2f' % (self.BridgeData.wn[0]/2/np.pi)) + 'Hz-m'+str(self.BridgeData.m/1.e03)+'t-nm'+str(self.BridgeData.nmod) +'-v'+str(self.ui.comboVelo.currentText())+'.dat'
                     dato = np.loadtxt(datafile)
                     idmax = np.argmax(abs(dato[:,1])); tdmax = dato[idmax,0]; dmax = dato[idmax,1];
                     leyenda = r'dmax = %.3f mm at t = %.3f s' % (dmax*1.0e3,tdmax)
@@ -1462,7 +1465,7 @@ class caldintav(QtWidgets.QMainWindow):
                     name = '-im-'
                 if float(self.ui.comboVelo.currentText()) <= tren.vmax:
                     path=getcwd()
-                    datafile = path + '/' + self.project_name + '/' + tren.nombre+ name + 'skew'+str(self.BridgeData.alpha)+'-L'+str(self.BridgeData.L) + '-z'+str(self.BridgeData.xi*100) + '-f'+ str('%.2f' % (self.BridgeData.wn[0]/2/np.pi)) + 'Hz-m'+str(self.BridgeData.m/1.e03)+'t-nm'+str(self.BridgeData.nmod) +'-v'+str(self.ui.comboVelo.currentText())+'.dat'
+                    datafile = path + sep + self.project_name + sep + tren.nombre+ name + 'skew'+str(self.BridgeData.alpha)+'-L'+str(self.BridgeData.L) + '-z'+str(self.BridgeData.xi*100) + '-f'+ str('%.2f' % (self.BridgeData.wn[0]/2/np.pi)) + 'Hz-m'+str(self.BridgeData.m/1.e03)+'t-nm'+str(self.BridgeData.nmod) +'-v'+str(self.ui.comboVelo.currentText())+'.dat'
                     dato = np.loadtxt(datafile)
                     idmax = np.argmax(abs(dato[:,1])); tdmax = dato[idmax,0]; dmax = dato[idmax,1];
                     leyenda = r'dmax = %.3f mm at t = %.3f s' % (dmax*1.0e3,tdmax)
