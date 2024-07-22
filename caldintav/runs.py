@@ -1717,7 +1717,6 @@ class caldintav(QtWidgets.QMainWindow):
         try: 
             if sys.platform == 'win32':
                 filename = path.abspath(path.dirname(cdt.__file__)) + sep + 'user_guide.pdf'
-                print(filename)
                 # PARA WINDOWS abertura PDF
                 os.startfile(filename)
             elif sys.platform == "darwin":
