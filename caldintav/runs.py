@@ -1714,10 +1714,9 @@ class caldintav(QtWidgets.QMainWindow):
         message = QtWidgets.QMessageBox.warning(self,'WARNING',texto, QtWidgets.QMessageBox.Close, QtWidgets.QMessageBox.Close)
     #--------------------------
     def open_manual(self):
-        try:
-            if sys.platform == "win32":
-                filename = direction + sep + "user_guide.pdf"
-                print(filename)
+        try: 
+            if sys.platform == 'win32':
+                filename = direction + sep + 'user_guide.pdf'
                 # PARA WINDOWS abertura PDF
                 os.startfile(filename)
             elif sys.platform == "darwin":
@@ -1729,9 +1728,10 @@ class caldintav(QtWidgets.QMainWindow):
                 # PARA UBUNTU-GNOME abertura PDF
                 system('/usr/bin/gnome-open '+ filename)
         except:
-            selection_empty = QtWidgets.QMessageBox.warning(self.w, "CALDINTAV 3.22: User guide opening error","It was not possible to open the user guide due to some of this reasons:\n\n1. The rute:\n\n"+ filename + "\n\nwhere the User guide was supposed to be is missing. Please, restore the file to its location.\n\n2. You have not a PDF reader installed. Please, install one.\n\n3. Your system configuration is not compatible with the predifined commands. Please, open it manually at the folder you are given avobe.",QtWidgets.QMessageBox.Ok, QtWidgets.QMessageBox.Ok)
+            selection_empty = QtWidgets.QMessageBox.warning(self, "CALDINTAV 3.22: User guide opening error","It was not possible to open the user guide due to some of this reasons:\n\n1. The rute:\n\n"+ filename + "\n\nwhere the User guide was supposed to be is missing. Please, restore the file to its location.\n\n2. You have not a PDF reader installed. Please, install one.\n\n3. Your system configuration is not compatible with the predifined commands. Please, open it manually at the folder you are given avobe.",QtWidgets.QMessageBox.Ok, QtWidgets.QMessageBox.Ok)
             return 0
         return
+    #---------
     def open_about(self):
         self.about.show()
         return
