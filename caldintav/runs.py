@@ -1296,7 +1296,7 @@ class caldintav(QtWidgets.QMainWindow):
         self.plotGR.axes2.grid()
         self.plotGR.draw()
         # text view for maximum accelearation and displacment 
-        lf.ui.label_70.setText(str('%.2f' % (max(aux1))))
+        self.ui.label_70.setText(str('%.2f' % (max(aux1))))
         self.ui.label_75.setText(str('%.2f' % (aux2[np.argmax(np.array(aux1))])))
         self.ui.label_73.setText(str('%.2f' % (max(aux3))))
         self.ui.label_77.setText(str('%.2f' % (aux4[np.argmax(np.array(aux3))])))
