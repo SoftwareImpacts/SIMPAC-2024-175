@@ -18,10 +18,10 @@ Getting the latest code
 
 To get the latest code using git, simply type::
 
-    git clone git://github.com/khanh/caldintav.git
+    git clone git://github.com/khanh-nguyen-gia/caldintav.git
 
 If you don't have git installed, you can download a tar.gz file
-of the latest code: http://github.com/khanh/caldintav/archives/master
+of the latest code: http://github.com/khanh-nguyen-gia/caldintav/archives/master
 
 Requirements
 =========================
