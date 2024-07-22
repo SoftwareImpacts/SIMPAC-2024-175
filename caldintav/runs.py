@@ -64,8 +64,8 @@ class caldintav(QtWidgets.QMainWindow):
         self.ui=Ui_MainWindow()
         self.ui.setupUi(self)
         # set image upm and caminos 
-        self.ui.label.setPixmap(QtGui.QPixmap(direction+"/upm.png"))
-        self.ui.label_2.setPixmap(QtGui.QPixmap(direction+"/caminos.png"))
+        self.ui.label.setPixmap(QtGui.QPixmap(direction+sep+"upm.png"))
+        self.ui.label_2.setPixmap(QtGui.QPixmap(direction+sep+"caminos.png"))
         # -------
         # File in Menubar
         # connect signal to the new project
@@ -1716,15 +1716,15 @@ class caldintav(QtWidgets.QMainWindow):
     def open_manual(self):
         try: 
             if sys.platform == "darwin":
-                filename = direction + '/user_guide.pdf'
+                filename = direction + sep + 'user_guide.pdf'
                 # PARA MAC OS SYSTEM
                 system('open '+filename)
             elif  sys.platform == "linux" or "linux2":
-                filename = direction + '/user_guide.pdf'
+                filename = direction + sep + 'user_guide.pdf'
                 # PARA UBUNTU-GNOME abertura PDF
                 system('/usr/bin/gnome-open '+ filename)
             elif sys.platform == "win32":
-                filename = direction + "\\user_guide.pdf"
+                filename = direction + sep + "user_guide.pdf"
                 # PARA WINDOWS abertura PDF
                 os.startfile(filename)
         except:
