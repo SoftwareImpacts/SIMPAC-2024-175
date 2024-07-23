@@ -21,7 +21,7 @@ To get the latest code using git, simply type::
     git clone https://github.com/khanh-nguyen-gia/caldintav.git
 
 If you don't have git installed, you can download a tar.gz file
-of the latest code: http://github.com/khanh-nguyen-gia/caldintav/archives/master
+of the latest code: https://github.com/khanh-nguyen-gia/caldintav/tree/main/dist
 
 Requirements
 =========================
