@@ -39,11 +39,11 @@ setup(
     # its long description
     long_description=readme(),
     # the program main home page
-    url='http://www.mecanica.upm.es',
+    url='https://www.mecanica.upm.es',
     # authors  of program
     author='K. Nguyen; J.M. Goicolea; P. Antolin',
     # autho emails
-    author_email = 'khanh@mecanica.upm.es',
+    author_email = 'khanhnguyen.gia@upm.es',
     # chooose license
     license='GPL-3.0',
     # include developed packages into the module
