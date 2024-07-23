@@ -9,11 +9,11 @@
 #
 # OPTIONS:
 # REQUIREMENTS:
-# AUTHOR: Khanh Nguyen Gia, khanh@mecanica.upm.es or khanhng1982@yahoo.com
-# WEB: http://w3.mecanica.upm.es/~khanh
+# AUTHOR: Khanh Nguyen Gia, khanhnguyen.gia@upm.es
+# WEB: http://www.mecanica.upm.es/es/knguyen
 # VERSION: 1.0.10
 # CREATED: 17-10-2017
-# LICENSE: MIT
+# LICENSE: GPL-3.0
 #=================================================================================
 
 """
