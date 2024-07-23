@@ -45,7 +45,7 @@ setup(
     # autho emails
     author_email = 'khanh@mecanica.upm.es',
     # chooose license
-    license='MIT',
+    license='GPLv3.0',
     # include developed packages into the module
     packages=find_packages(),
     # Dependencies of packages. When the program is installed by "pip", this is the
