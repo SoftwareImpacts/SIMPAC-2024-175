@@ -45,14 +45,14 @@ setup(
     # autho emails
     author_email = 'khanh@mecanica.upm.es',
     # chooose license
-    license='GPLv3.0',
+    license='GPL-3.0',
     # include developed packages into the module
     packages=find_packages(),
     # Dependencies of packages. When the program is installed by "pip", this is the
     # specification that is needed to install its dependencies
     install_requires=['numpy>=1.11','sympy>=0.7','joblib>=0.9','scipy>=0.17','matplotlib>=1.5','pyqt5'],
     # Requires a certain Python version
-    python_requires='>=2.6',
+    python_requires='>=3.0',
     # To provide executable scripts, use entry points that provide cross-platform
     # support and allow "pip" to create the appropiate form of executable for the target platform
     entry_points={
