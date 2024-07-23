@@ -46,6 +46,8 @@ from any directory or::
 
 from the source directory.
 
+Maybe you need to be the administrator to install the program. 
+
 Running the CALDINTAV software
 =========================
 
@@ -57,7 +59,7 @@ system)
 
 Use the following command in the Command Window::
 
-    caldintav
+    caldintav3
 
 or introducing the following commands in the Python shell::
 
