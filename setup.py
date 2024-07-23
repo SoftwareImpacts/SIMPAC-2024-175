@@ -41,7 +41,7 @@ setup(
     # the program main home page
     url='https://www.mecanica.upm.es',
     # authors  of program
-    author='K. Nguyen; J.M. Goicolea; P. Antolin',
+    author='K. Nguyen; J.M. Goicolea',
     # autho emails
     author_email = 'khanhnguyen.gia@upm.es',
     # chooose license
