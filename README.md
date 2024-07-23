@@ -32,6 +32,7 @@ Requirements
            - matplotlib
            - scipy
            - pyqt5
+           - joblib
 
 Installing
 =========================
